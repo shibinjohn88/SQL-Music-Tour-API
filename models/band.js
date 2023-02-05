@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       // set times
       Band.hasMany(SetTime, {
         foreignKey: "band_id",
-        set_times: "set_times"
+        as: "set_times"
       })
     } 
   }
-  
+
   Band.init({
     band_id: {type:DataTypes.INTEGER,
     autoIncrement: true,

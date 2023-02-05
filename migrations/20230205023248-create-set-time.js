@@ -27,6 +27,15 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
+      band_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'bands',
+          key: 'band_id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
       start_time: {
         type: Sequelize.DATE
       },
