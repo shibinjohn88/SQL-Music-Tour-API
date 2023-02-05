@@ -9,10 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate({ MeetGreet, Stage, StageEvent, SetTime }) {
+      // meet and greets 
+      Event.hasMany(MeetGreet, {
+        foreignKey: "event_id",
+        as: "meet_greets"
+      })
+
+      // stages
+      Event.belongsToMany(Stage, {
+        foreignKey: "event_id",
+        as: "stages",
+        through: StageEvent
+      })
+
+      // set times 
+      Event.hasMany(SetTime, {
+        foreignKey: "event_id",
+        as: "set_times"
+      })
+      
     }
+
   }
+
   Event.init({
     event_id: {type:DataTypes.INTEGER,
       autoIncrement: true,
@@ -33,4 +53,5 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Event;
 };
+
 

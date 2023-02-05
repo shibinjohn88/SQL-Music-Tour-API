@@ -9,8 +9,19 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate({ Event, StageEvent, SetTime }) {
+      // events
+      Stage.belongsToMany(Event, {
+        foreignKey: "stage_id",
+        as: "events", 
+        through: StageEvent
+      })
+
+      // set times 
+      Stage.hasMany(SetTime, {
+        foreignKey: "stage_id",
+        as: "set_times"
+      })
     }
   }
   Stage.init({
@@ -28,14 +39,5 @@ module.exports = (sequelize, DataTypes) => {
   return Stage;
 };
 
-//create a foreign key
 
-// stage_id: {
-//   type: Sequelize.INTEGER,
-//   references :{
-//     model: 'stages',
-//     key: 'stage_id'
-//   },
-//   onUpdate: 'cascade',
-//   onDelete: 'cascade'
-// },
+
